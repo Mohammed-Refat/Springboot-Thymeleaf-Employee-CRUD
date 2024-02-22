@@ -3,13 +3,11 @@ package com.springbootthymeleafcrudwebapp.demo.controller;
 import com.springbootthymeleafcrudwebapp.demo.entity.Employee;
 import com.springbootthymeleafcrudwebapp.demo.service.EmployeeService;
 import lombok.Getter;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -33,6 +31,21 @@ public class EmployeeController {
         model.addAttribute("employee",employee);
         return "new_employee";
     }
+
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee){
+        employeeService.saveEmployee(employee);
+        return "redirect:/";
+    }
+
+    @GetMapping("/showFormForUpdate/{id}")
+    public String showFormForUpdate(@PathVariable Long id ,Model model){
+        Employee employee = employeeService.getEmployeeById(id);
+        model.addAttribute("employee",employee);
+
+        return "update_employee";
+    }
+
 }
 
 
