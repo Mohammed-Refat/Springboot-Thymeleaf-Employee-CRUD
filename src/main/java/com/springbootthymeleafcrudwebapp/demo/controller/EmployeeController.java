@@ -42,7 +42,6 @@ public class EmployeeController {
     public String showFormForUpdate(@PathVariable Long id ,Model model){
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee",employee);
-
         return "update_employee";
     }
 
